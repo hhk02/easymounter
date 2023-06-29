@@ -23,7 +23,7 @@ func main() {
 		fmt.Scanln(&source)
 	} else {
 		fmt.Println("Mounting: " + source)
-		gofsutil.Mount(context.Background(), source, target, "ext4", "rw")
+		gofsutil.Mount(context.Background(), source, target, "auto", "auto")
 		fmt.Println(("Done!"))
 	}
 }
