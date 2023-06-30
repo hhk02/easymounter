@@ -3,14 +3,13 @@
 package main
 
 import (
-	"context"
 	"fmt"
-
-	"github.com/dell/gofsutil"
+	"os"
 )
 
 var source string
 var target string
+var mountprocess string = "mount -t auto " + source + " " + target
 
 func main() {
 	fmt.Println("EASY MOUNTER by hhk02")
@@ -32,7 +31,7 @@ func main() {
 		fmt.Scanln(&source)
 	} else {
 		fmt.Println("Mounting: " + source + "to " + target)
-		gofsutil.Mount(context.Background(), source, target, "auto", "rw,relatime,errors=remount-ro")
+		os.StartProcess(mountprocess, nil, nil)
 		fmt.Println(("Done!"))
 	}
 }
