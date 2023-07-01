@@ -4,17 +4,18 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
+	"os/exec"
 )
 
+var args []string
+var mount string = "mount"
 var source string
 var target string
-var mountprocess string = "mount -t auto "
 
 func main() {
+
 	fmt.Println("EASY MOUNTER by hhk02")
-	fmt.Println("Write source image: ")
+	fmt.Println("Write source path: ")
 	fmt.Scanln(&source)
 	fmt.Println("Write target path: ")
 	fmt.Scanln(&target)
@@ -28,14 +29,18 @@ func main() {
 
 	if source == "" {
 		fmt.Println("Invalid value!")
-		fmt.Println("Write source image: ")
+		fmt.Println("Write source path: ")
 		fmt.Scanln(&source)
 	} else {
+
 		fmt.Println("Mounting: " + source + " to " + target)
-		_, err := os.StartProcess(mountprocess, []string{source, target}, &os.ProcAttr{})
+		cmd := exec.Command(mount, source, target)
+		out, err := cmd.Output()
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println("Error")
 		}
+
+		fmt.Println(string(out))
 		fmt.Println(("Done!"))
 	}
 }
